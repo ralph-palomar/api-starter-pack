@@ -13,8 +13,10 @@ The default keystore password for server-keystore.jks is **changeit**.
 mvn clean package deploy -Dmule.env=sandbox -Dmule.key=mypassword123456 -Dmule.logger.level=INFO -Dcloudhub.env=Sandbox -DmuleDeploy
 
 In your maven settings.xml, make sure to add your Anypoint Platform credentials so that you can deploy to cloudhub.
+```
   <server>
     <id>anypoint</id>
-    <username>---</username>
-    <password>---</password>
+    <username>username</username>
+    <password>password</password>
   </server>
+```
