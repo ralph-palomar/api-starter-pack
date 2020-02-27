@@ -1,0 +1,29 @@
+#%RAML 1.0
+title: API Starter Project
+version: v1
+baseUri: https://api-starter-pack.cloudhub.io
+securitySchemes:
+  basic:
+    type: Basic Authentication
+protocols:
+  - HTTPS
+securedBy: basic
+types:
+  helloWorldResponse:
+    properties:
+      message: string
+
+/v1:
+  /helloWorld:
+    get:
+      queryParameters:
+        name: string
+      responses:
+        200:
+          body:
+            application/json:
+              type: helloWorldResponse
+              example: |
+                {
+                  "message" : "Hello World"
+                }

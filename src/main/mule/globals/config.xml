@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd 
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+	<configuration-properties file="extensions/common.yaml" />
+	<configuration-properties file="extensions/${mule.env}.yaml" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="5867d4a7-17be-4e77-b335-0dc2760a2181" file="extensions/${mule.env}-secure.yaml" key="${mule.key}"/>
+	<http:listener-config name="HTTP_Listener_Config">
+        <http:listener-connection host="0.0.0.0" port="${https.port}" protocol="HTTPS" tlsContext="Custom_TLS_Context"/>
+    </http:listener-config>
+    <apikit:config name="API_Router_Config" raml="api/api-starter-pack.raml" api="api\api-starter-pack.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+	<tls:context name="Custom_TLS_Context" doc:name="TLS Context" doc:id="83313efd-e2df-49fc-8c2f-4c068a10d131">
+        <tls:key-store type="jks" path="keystores/server-keystore.jks" alias="${keystore.alias}" keyPassword="${secure::keystore.password}" password="${secure::keystore.password}"/>
+    </tls:context>
+	<configuration doc:name="Global_Configuration" doc:id="73b915ac-007c-4f40-8858-a0d874e4ce64" defaultErrorHandler-ref="globalErrorHandler" />
+</mule>

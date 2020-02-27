@@ -1,0 +1,3 @@
+#### KEYSTORE PROPERTIES FOR TLS CONTEXT #####
+keystore:
+  alias: "localhost"

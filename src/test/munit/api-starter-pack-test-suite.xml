@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+	<munit:config name="api-starter-pack-test-suite.xml" />
+	<http:request-config name="HTTP_Request_Configuration_Test" doc:name="HTTP Request configuration" doc:id="41b63505-5fcd-49e1-936e-fcd4725c1636" >
+		<http:request-connection protocol="HTTPS" host="localhost" port="${https.port}" >
+			<tls:context >
+				<tls:trust-store insecure="true" />
+			</tls:context>
+		</http:request-connection>
+	</http:request-config>
+	<munit:test name="test-helloWorld" doc:id="8a52cbf9-e716-4af4-a73b-e08e0d36ac94" description="Test helloWorld">
+		<munit:enable-flow-sources >
+			<munit:enable-flow-source value="api-main" />
+			<munit:enable-flow-source value="get:\v1\helloWorld:API_Router_Config" />
+		</munit:enable-flow-sources>
+		<munit:execution>
+			<http:request method="GET" doc:name="Request" doc:id="08aec574-8c5d-4d1f-a080-1429f20032a1" config-ref="HTTP_Request_Configuration_Test" path="/api/v1/helloWorld">
+				<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"name" : "test"
+}]]]></http:query-params>
+			</http:request>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert That Status Code is 200" doc:id="39ac3f88-c90e-4bf2-86b0-7744baa025c5" is="#[MunitTools::equalTo(200)]" expression="#[attributes.statusCode]" message="The HTTP Status code is not correct!"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

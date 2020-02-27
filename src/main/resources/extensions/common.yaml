@@ -1,0 +1,12 @@
+##### HTTP LISTENER PROPERTIES #####
+https:
+  port: "8082"
+  private:
+    port: "8092"
+  request:
+    timeout: "60000"
+
+##### SPLUNK CONFIGURATION PROPERTIES #####
+splunk:
+  url: ""
+  token: ""
