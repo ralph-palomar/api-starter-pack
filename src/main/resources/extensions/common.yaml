@@ -5,8 +5,3 @@ https:
     port: "8092"
   request:
     timeout: "60000"
-
-##### SPLUNK CONFIGURATION PROPERTIES #####
-splunk:
-  url: ""
-  token: ""
