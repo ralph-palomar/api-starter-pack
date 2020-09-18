@@ -15,7 +15,7 @@ The default keystore password for server-keystore.jks is **changeit**.
 ### Maven command to deploy this application:
 mvn clean package deploy -Dmule.env=sandbox -Dmule.key=mypassword123456 -Dmule.logger.level=INFO -Danypoint.env=Sandbox -Dcloudhub.region=ap-southeast-2 -Dworkers=1 -DworkerType=MICRO -DmuleDeploy
 
-In your maven settings.xml, make sure to add your Anypoint Platform credentials so that you can deploy to cloudhub in your own Anypoint Platform account.
+In your maven settings.xml, make sure to add your Anypoint Platform credentials so that you can deploy to cloudhub in your own Anypoint Platform environment.
 ```
   <server>
     <id>anypoint</id>
@@ -24,5 +24,5 @@ In your maven settings.xml, make sure to add your Anypoint Platform credentials 
   </server>
 ```
 
-### To test this API, open the API console on your web browser:
+### To test this API, open the APIKit console on your web browser after deploying this Mule application:
 https://localhost:8082/console/
