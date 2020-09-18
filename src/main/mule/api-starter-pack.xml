@@ -10,8 +10,11 @@
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:error-response>
         </http:listener>
-        <apikit:router config-ref="API_Router_Config"/>
-        <error-handler>
+		<apikit:router config-ref="API_Router_Config"/>
+        <set-variable value="#[{
+	correlationId: correlationId
+}]" doc:name="outboundHeaders" doc:id="3779e971-b2fb-4997-b98d-a83da29eef82" variableName="outboundHeaders" />
+		<error-handler>
             <on-error-propagate type="APIKIT:BAD_REQUEST">
                 <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
                     <ee:message>

@@ -1,5 +1,6 @@
 #%RAML 1.0
 title: API Starter Project
+description: This is a basic Mule API project to help you get started.
 version: v1
 baseUri: https://api-starter-pack.cloudhub.io
 securitySchemes:
@@ -15,6 +16,7 @@ types:
 
 /v1:
   /helloWorld:
+    description: Welcome to the world of API!
     get:
       queryParameters:
         name: string
